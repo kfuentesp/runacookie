@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Runa Cookies — Galletas artesanales estilo Nueva York</title>
+<meta name="description" content="Galletas artesanales estilo Nueva York, curadas en frío y horneadas al momento. Arma tu caja desde 2 galletas. Delivery en Región Metropolitana de Santiago.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #F4EBDA;
+    --cream-soft: #EFE2C7;
+    --card: #FBF6EB;
+    --ink: #241A12;
+    --ink-soft: #4A3B2C;
+    --gold: #B98A46;
+    --gold-deep: #8E652C;
+    --line: rgba(36,26,18,0.12);
+    --white: #FFFDF8;
+    --radius: 22px;
+    --max: 1180px;
+  }
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    line-height:1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width: var(--max); margin:0 auto; padding:0 clamp(20px,5vw,48px); }
+  section{ position:relative; }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--cream); }
+  ::-webkit-scrollbar-thumb{ background:var(--gold); border-radius:10px; }
+
+  /* ---------- Botones ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 15px 28px;
+    border-radius: 999px;
+    font-weight:700;
+    font-size: clamp(14px,1.6vw,16px);
+    border:2px solid transparent;
+    cursor:pointer;
+    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, background .3s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background: var(--ink);
+    color: var(--cream);
+    box-shadow: 0 10px 30px -12px rgba(36,26,18,0.55);
+  }
+  .btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 16px 34px -12px rgba(36,26,18,0.65); }
+  .btn-outline{
+    border-color: var(--ink);
+    color: var(--ink);
+    background: transparent;
+  }
+  .btn-outline:hover{ background: var(--ink); color: var(--cream); transform: translateY(-3px); }
+  .btn-gold{
+    background: var(--gold);
+    color: var(--white);
+    box-shadow: 0 10px 26px -10px rgba(185,138,70,0.7);
+  }
+  .btn-gold:hover{ transform: translateY(-3px); background: var(--gold-deep); }
+
+  /* ---------- Nav ---------- */
+  header{
+    position: fixed; top:0; left:0; width:100%; z-index:100;
+    padding: 16px 0;
+    transition: background .4s ease, box-shadow .4s ease, padding .4s ease;
+  }
+  header.scrolled{
+    background: rgba(244,235,218,0.86);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 var(--line);
+    padding: 10px 0;
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size: 22px;
+    letter-spacing: 0.01em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .dot{
+    width:10px; height:10px; border-radius:50%;
+    background: var(--gold);
+    display:inline-block;
+  }
+  .brand-logo{
+    width:42px; height:42px; border-radius:50%;
+    overflow:hidden; flex:none; position:relative;
+    background: var(--cream-soft);
+    box-shadow: 0 0 0 2px var(--line);
+  }
+  .brand-logo img{
+    position:absolute;
+    width:152%; height:152%;
+    top:-2%; left:-26%;
+    max-width:none;
+  }
+  .nav-links{ display:flex; align-items:center; gap:34px; }
+  .nav-links a{
+    font-weight:600; font-size:14.5px; color: var(--ink-soft);
+    position:relative; padding: 4px 0;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--ink);
+    transition: width .3s ease;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:16px; }
+  .burger{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .burger span{ display:block; width:24px; height:2px; background:var(--ink); margin:6px 0; transition:.3s; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height: 100svh;
+    display:flex; align-items:center;
+    padding-top: 110px; padding-bottom: 60px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; top:-20%; right:-10%;
+    width:56vw; height:56vw; max-width:720px; max-height:720px;
+    background: radial-gradient(circle at 40% 40%, rgba(185,138,70,0.35), rgba(185,138,70,0) 70%);
+    border-radius:50%;
+    z-index:0;
+    animation: float 14s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{ transform: translate(0,0); }
+    50%{ transform: translate(-20px, 30px); }
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(30px,5vw,70px);
+    align-items:center; position:relative; z-index:1; width:100%;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color: var(--gold-deep);
+    background: rgba(185,138,70,0.14);
+    padding: 8px 16px; border-radius:999px;
+    margin-bottom: 22px;
+  }
+  .hero h1{
+    font-size: clamp(40px, 6.4vw, 76px);
+    color: var(--ink);
+  }
+  .hero h1 em{ font-style:italic; color: var(--gold-deep); }
+  .hero p.lead{
+    margin-top: 22px;
+    font-size: clamp(16px,1.7vw,19px);
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero-cta{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; }
+  .hero-stats{ display:flex; gap: clamp(20px,3vw,40px); margin-top:48px; flex-wrap:wrap; }
+  .hero-stat b{
+    font-family:'Fraunces', serif; font-size: clamp(24px,3vw,32px); display:block; color:var(--ink);
+  }
+  .hero-stat span{ font-size:13px; color:var(--ink-soft); font-weight:600; }
+
+  .hero-visual-wrap{ position:relative; }
+  .hero-visual{
+    position:relative; aspect-ratio: 1/1.05; border-radius: 32px;
+    overflow:hidden;
+    background: linear-gradient(155deg, #E7C98C 0%, #C9954D 45%, #8E5A28 100%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 40px 80px -30px rgba(80,55,20,0.5);
+  }
+  .hero-visual img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position: center 55%;
+  }
+  .hero-visual .ph-label{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    color: rgba(255,255,255,0.92); text-align:center; padding: 30px;
+  }
+  .hero-visual .ph-label strong{ font-family:'Fraunces',serif; font-size:20px; }
+  .hero-visual .ph-label span{ font-size:13px; opacity:.85; max-width:26ch; }
+  .hero-badge{
+    position:absolute; bottom: -22px; left: -22px;
+    background: var(--card); border-radius: 20px; padding: 16px 20px;
+    box-shadow: 0 20px 40px -18px rgba(36,26,18,0.35);
+    display:flex; align-items:center; gap:12px;
+    max-width: 240px;
+  }
+  .hero-badge .num{ font-family:'Fraunces',serif; font-size:26px; color:var(--gold-deep); }
+  .hero-badge .txt{ font-size:12.5px; color:var(--ink-soft); font-weight:600; line-height:1.3; }
+
+  /* ---------- Reveal genérico ---------- */
+  [data-reveal]{
+    opacity:0; transform: translateY(36px);
+    transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+  }
+  [data-reveal].in{ opacity:1; transform: translateY(0); }
+  [data-reveal="left"]{ transform: translateX(-44px); }
+  [data-reveal="left"].in{ transform: translateX(0); }
+  [data-reveal="right"]{ transform: translateX(44px); }
+  [data-reveal="right"].in{ transform: translateX(0); }
+  [data-reveal="scale"]{ transform: scale(.92); }
+  [data-reveal="scale"].in{ transform: scale(1); }
+
+  [data-stagger] > *{
+    opacity:0; transform: translateY(30px);
+    transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  [data-stagger].in > *{ opacity:1; transform: translateY(0); }
+
+  /* ---------- Section heads ---------- */
+  .section-head{ max-width: 640px; margin-bottom: 56px; }
+  .kicker{
+    font-size:13px; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+    color: var(--gold-deep); margin-bottom:14px; display:block;
+  }
+  .section-head h2{ font-size: clamp(30px,4.2vw,48px); }
+  .section-head p{ margin-top:16px; color:var(--ink-soft); font-size: clamp(15px,1.5vw,17px); max-width: 54ch; }
+  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+
+  section.pad{ padding: clamp(70px,10vw,120px) 0; }
+
+  /* ---------- Encuéntranos en ---------- */
+  .find-us{ background: var(--white); }
+  .find-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:22px; }
+  .find-card{
+    background: var(--card); border-radius: 20px; padding:28px 26px; border:1px solid var(--line);
+    transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s ease;
+  }
+  .find-card:hover{ transform: translateY(-6px); box-shadow: 0 24px 40px -24px rgba(36,26,18,0.28); }
+  .find-card .ico{
+    width:44px; height:44px; border-radius:50%; background: rgba(185,138,70,0.16);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+    font-family:'Fraunces',serif; font-weight:700; color:var(--gold-deep); font-size:17px;
+    overflow:hidden; position:relative;
+  }
+  .find-card .ico img{
+    position:absolute; width:100%; height:100%; object-fit:cover; object-position:center;
+    max-width:none;
+  }
+  .find-card .ico.logo-zho img{
+    width:150%; height:150%; top:-14%; left:-25%;
+  }
+  .find-card .type{ display:block; font-size:12px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:6px; }
+  .find-card h4{ font-size:18px; margin-bottom:6px; }
+  .find-card .comuna{ display:flex; align-items:center; gap:6px; font-size:13.5px; color:var(--ink-soft); font-weight:600; }
+
+  /* ---------- Productos ---------- */
+  .products{ background: var(--cream); }
+  .tabs-note{ display:flex; align-items:center; gap:10px; margin-bottom:34px; }
+  .tag{
+    display:inline-flex; align-items:center; padding:6px 14px; border-radius:999px;
+    font-size:12.5px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+  }
+  .tag-clasica{ background: rgba(36,26,18,0.08); color:var(--ink-soft); }
+  .tag-premium{ background: rgba(185,138,70,0.18); color:var(--gold-deep); }
+  .tag-dubai{ background: var(--ink); color:var(--cream); }
+  .tag-keto{ background: rgba(90,120,70,0.16); color:#4C6438; }
+
+  .grid-cards{ display:grid; grid-template-columns: repeat(3,1fr); gap:26px; }
+  .card{
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 30px;
+    border:1px solid var(--line);
+    transition: transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s ease, border-color .3s ease;
+    position:relative;
+  }
+  .card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 30px 50px -24px rgba(36,26,18,0.28);
+    border-color: transparent;
+  }
+  .card .swatch{
+    width:100%; aspect-ratio: 16/11; border-radius:16px; margin-bottom:20px;
+    background: linear-gradient(140deg, var(--c1), var(--c2));
+    display:flex; align-items:flex-end; padding:14px; position:relative; overflow:hidden;
+  }
+  .card .swatch::after{
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(circle at 75% 20%, rgba(255,255,255,0.35), transparent 55%);
+  }
+  .card .swatch:has(img)::after{ display:none; }
+  .card .swatch img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+  }
+  .card h3{ font-size:21px; margin-bottom:8px; }
+  .card p.desc{ font-size:14.5px; color:var(--ink-soft); min-height:44px; }
+  .card .price-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:20px; padding-top:18px; border-top:1px dashed var(--line);
+  }
+  .card .price{ font-family:'Fraunces',serif; font-size:22px; color:var(--gold-deep); font-weight:600; }
+  .card .unit{ font-size:12px; color:var(--ink-soft); }
+
+  .card.featured{
+    background: linear-gradient(160deg, var(--ink) 0%, #3A2A1B 100%);
+    color: var(--cream);
+    border:none;
+  }
+  .card.featured p.desc, .card.featured .unit{ color: rgba(244,235,218,0.72); }
+  .card.featured .price{ color: var(--gold); }
+  .card.featured .price-row{ border-top-color: rgba(244,235,218,0.2); }
+
+  .keto-card{
+    margin-top: 30px; display:flex; gap:26px; align-items:center;
+    background: var(--card); border-radius: var(--radius); padding: 30px;
+    border:1px solid var(--line);
+  }
+  .keto-visual{ width:150px; height:150px; flex:none; border-radius:18px; background: linear-gradient(150deg,#7C9463,#4C6438); position:relative; overflow:hidden; }
+  .keto-visual img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .keto-copy h3{ font-size:22px; margin-bottom:8px; }
+  .keto-copy p{ color:var(--ink-soft); font-size:15px; }
+  .keto-copy .price-placeholder{
+    margin-top:12px; display:inline-block; font-weight:700; font-size:14px;
+    color: var(--gold-deep); background: rgba(185,138,70,0.14); padding:6px 14px; border-radius:999px;
+  }
+
+  /* ---------- Arma tu caja ---------- */
+  .box-builder{ background: var(--white); }
+  .box-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: clamp(36px,6vw,70px); align-items:center; }
+  .steps{ display:flex; flex-direction:column; gap:22px; margin-top:10px; }
+  .step{ display:flex; gap:18px; align-items:flex-start; }
+  .step .n{
+    flex:none; width:42px; height:42px; border-radius:50%;
+    background: var(--ink); color:var(--cream); font-family:'Fraunces',serif; font-weight:600;
+    display:flex; align-items:center; justify-content:center; font-size:17px;
+  }
+  .step h4{ font-size:17px; margin-bottom:4px; }
+  .step p{ font-size:14.5px; color:var(--ink-soft); }
+  .box-visual{
+    aspect-ratio: 1/1; border-radius:28px; position:relative; overflow:hidden;
+    background: linear-gradient(155deg,#E7C98C,#B98A46 60%,#8E5A28);
+  }
+  .box-visual img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position: center 30%;
+  }
+  .box-visual .ph-label{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:rgba(255,255,255,.92); text-align:center; padding:30px; }
+  .box-visual .ph-label strong{ font-family:'Fraunces',serif; font-size:19px; }
+  .box-visual .ph-label span{ font-size:12.5px; opacity:.85; max-width:24ch; }
+
+  /* ---------- Mayoristas ---------- */
+  .wholesale{
+    background: var(--ink); color: var(--cream);
+    border-radius: 36px; margin: 0 clamp(20px,5vw,48px);
+    padding: clamp(50px,7vw,90px) clamp(30px,6vw,80px);
+    display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items:center;
+  }
+  .wholesale .kicker{ color: var(--gold); }
+  .wholesale h2{ font-size: clamp(28px,3.6vw,42px); color:var(--cream); }
+  .wholesale p{ margin-top:16px; color: rgba(244,235,218,0.75); font-size:16px; max-width:52ch; }
+  .wholesale-cta{ display:flex; justify-content:flex-end; }
+  @media (max-width: 760px){ .wholesale{ grid-template-columns:1fr; } .wholesale-cta{ justify-content:flex-start; } }
+
+  /* ---------- Cómo pedir ---------- */
+  .how{ background: var(--cream); }
+  .how-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:22px; }
+  .how-card{
+    background: var(--card); border-radius: 20px; padding:28px 24px; border:1px solid var(--line);
+    transition: transform .4s cubic-bezier(.16,1,.3,1);
+  }
+  .how-card:hover{ transform: translateY(-6px); }
+  .how-card .ico{
+    width:46px; height:46px; border-radius:14px; background: rgba(185,138,70,0.16);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+    font-family:'Fraunces',serif; font-weight:700; color:var(--gold-deep); font-size:18px;
+  }
+  .how-card h4{ font-size:16.5px; margin-bottom:8px; }
+  .how-card p{ font-size:14px; color:var(--ink-soft); }
+
+  /* ---------- Contacto / Footer ---------- */
+  .contact{
+    background: var(--white);
+  }
+  .contact-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(36px,6vw,70px); align-items:center;
+  }
+  .contact h2{ font-size: clamp(30px,4vw,46px); }
+  .contact p.lead{ margin-top:16px; color:var(--ink-soft); font-size:16.5px; max-width:48ch; }
+  .contact-cta{ display:flex; gap:16px; margin-top:30px; flex-wrap:wrap; }
+  .contact-info{
+    background: var(--cream-soft); border-radius: var(--radius); padding: 34px;
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .info-row{ display:flex; gap:16px; align-items:flex-start; }
+  .info-row .ico{
+    flex:none; width:40px; height:40px; border-radius:12px; background:var(--ink); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+  .info-row b{ display:block; font-size:14px; }
+  .info-row span{ font-size:13.5px; color:var(--ink-soft); }
+  .info-row a{ font-weight:700; color:var(--gold-deep); }
+
+  footer{
+    padding: 40px 0 30px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-grid{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  .footer-brand{ display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:700; font-size:18px; }
+  .footer-links{ display:flex; gap:24px; }
+  .footer-links a{ font-size:13.5px; color:var(--ink-soft); font-weight:600; }
+  .footer-copy{ font-size:12.5px; color:var(--ink-soft); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px){
+    .hero-grid, .box-grid, .contact-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; }
+    .grid-cards{ grid-template-columns: repeat(2,1fr); }
+    .how-grid{ grid-template-columns: repeat(2,1fr); }
+    .find-grid{ grid-template-columns: repeat(2,1fr); }
+    .nav-links{ display:none; }
+    .burger{ display:block; }
+  }
+  @media (max-width: 620px){
+    .grid-cards{ grid-template-columns: 1fr; }
+    .how-grid{ grid-template-columns: 1fr; }
+    .find-grid{ grid-template-columns: 1fr; }
+    .keto-card{ flex-direction:column; text-align:center; }
+    .wholesale{ margin: 0 12px; border-radius:26px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal], [data-stagger] > *{ transition:none !important; opacity:1 !important; transform:none !important; }
+    .hero::before{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="brand"><span class="brand-logo"><img src="assets/logo.png" alt="Logo Runa Cookies"></span> Runa Cookies</a>
+      <div class="nav-links">
+        <a href="#nosotros">Encuéntranos</a>
+        <a href="#clasicas">Clásicas</a>
+        <a href="#premium">Premium</a>
+        <a href="#caja">Arma tu caja</a>
+        <a href="#mayoristas">Mayoristas</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="https://wa.me/56990924013?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20galletas%20Runa%20%F0%9F%8D%AA" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        <button class="burger" id="burgerBtn" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div data-reveal="left">
+        <span class="eyebrow">Región Metropolitana · Delivery en &lt;48h</span>
+        <h1>El verdadero <em>estilo Nueva York</em>,<br>100% artesanal en Chile.</h1>
+        <p class="lead">Masa preparada en frío y horneada al momento. Disfruta de 160g de textura suave, altura perfecta y un relleno que se funde en cada bocado. Hechas a mano, de a poco, como se debe.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#caja">Arma tu caja</a>
+          <a class="btn btn-outline" href="https://wa.me/56990924013?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20galletas%20Runa%20%F0%9F%8D%AA" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b data-counter="160">0</b><span>Gramos por galleta</span></div>
+          <div class="hero-stat"><b data-counter="24">0</b><span>Horas de anticipación</span></div>
+          <div class="hero-stat"><b data-counter="48">0</b><span>Horas máx. de entrega</span></div>
+        </div>
+      </div>
+      <div data-reveal="scale">
+        <div class="hero-visual-wrap">
+          <div class="hero-visual">
+            <img src="assets/hero.jpg" alt="Galletas Runa Cookies apiladas, rellenos a la vista">
+          </div>
+          <div class="hero-badge">
+            <span class="num">9+</span>
+            <span class="txt">sabores entre clásicas, premium y Dubai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENCUÉNTRANOS EN -->
+  <section class="find-us pad" id="nosotros">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">También fuera de línea</span>
+        <h2>Encuéntranos en</h2>
+        <p>Además de los pedidos directos por WhatsApp, nuestras galletas están disponibles en estos locales aliados de Santiago.</p>
+      </div>
+      <div class="find-grid" data-stagger>
+        <div class="find-card">
+          <div class="ico logo-zho"><img src="assets/partner-zho.png" alt="Logo Zho"></div>
+          <span class="type">Cafetería</span>
+          <h4>Zho</h4>
+          <span class="comuna">📍 Las Condes</span>
+        </div>
+        <div class="find-card">
+          <div class="ico"><img src="assets/partner-auguri.png" alt="Logo Auguri x Mut"></div>
+          <span class="type">Heladería</span>
+          <h4>Auguri x Mut</h4>
+          <span class="comuna">📍 Las Condes</span>
+        </div>
+        <div class="find-card">
+          <div class="ico"><img src="assets/partner-mery.png" alt="Logo Bakery Mery"></div>
+          <span class="type">Bakery</span>
+          <h4>Mery</h4>
+          <span class="comuna">📍 San Joaquín</span>
+        </div>
+        <div class="find-card">
+          <div class="ico"><img src="assets/partner-latitud51.png" alt="Logo Latitud 51"></div>
+          <span class="type">Cafetería</span>
+          <h4>Latitud 51</h4>
+          <span class="comuna">📍 Ñuñoa</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLÁSICAS -->
+  <section class="products pad" id="clasicas">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div class="tabs-note"><span class="tag tag-clasica">Clásicas · $2.000 c/u</span></div>
+        <h2>Los sabores de siempre, bien hechos</h2>
+        <p>El punto de partida perfecto si es tu primera caja Runa.</p>
+      </div>
+      <div class="grid-cards" data-stagger>
+        <article class="card">
+          <div class="swatch"><img src="assets/cookies-and-cream.jpg" alt="Galleta Cookies and Cream Runa Cookies"></div>
+          <h3>Cookies and Cream</h3>
+          <p class="desc">Trozos de chocolate blanco y galletas Oreo.</p>
+          <div class="price-row"><span class="price">$2.000</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card">
+          <div class="swatch"><img src="assets/triple-chocolate.jpg" alt="Galleta Triple Chocolate Runa Cookies"></div>
+          <h3>Triple Chocolate</h3>
+          <p class="desc">Cacao amargo, trozos de chocolate blanco y negro.</p>
+          <div class="price-row"><span class="price">$2.000</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card">
+          <div class="swatch"><img src="assets/nuts.jpg" alt="Galleta Nuts Runa Cookies"></div>
+          <h3>Nuts</h3>
+          <p class="desc">Trozos de chocolate y maní.</p>
+          <div class="price-row"><span class="price">$2.000</span><span class="unit">por unidad</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIUM -->
+  <section class="products pad" id="premium">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <div class="tabs-note"><span class="tag tag-premium">Premium · $2.500 c/u</span></div>
+        <h2>Rellenos más golosos, texturas más intensas</h2>
+        <p>Para cuando quieres regalar (o regalarte) algo de nuestra categoría premium.</p>
+      </div>
+      <div class="grid-cards" data-stagger>
+        <article class="card">
+          <div class="swatch"><img src="assets/nuez-manjar.jpg" alt="Galleta Nuez Manjar Runa Cookies"></div>
+          <h3>Nuez Manjar</h3>
+          <p class="desc">Trozos de nuez, manjar y cobertura negra.</p>
+          <div class="price-row"><span class="price">$2.500</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card">
+          <div class="swatch"><img src="assets/nutella-black.jpg" alt="Galleta Nutella Black Runa Cookies"></div>
+          <h3>Nutella Black</h3>
+          <p class="desc">Trozos de chocolate blanco y Nutella.</p>
+          <div class="price-row"><span class="price">$2.500</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card">
+          <div class="swatch"><img src="assets/red-velvet.jpg" alt="Galleta Red Velvet Runa Cookies"></div>
+          <h3>Red Velvet</h3>
+          <p class="desc">Cremoso frosting de queso crema y cobertura blanca.</p>
+          <div class="price-row"><span class="price">$2.500</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card">
+          <div class="swatch"><img src="assets/choco-cream.jpg" alt="Galleta Choco-Cream Runa Cookies"></div>
+          <h3>Choco-Cream</h3>
+          <p class="desc">Mitad triple chocolate, mitad cookies and cream.</p>
+          <div class="price-row"><span class="price">$2.500</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card">
+          <div class="swatch"><img src="assets/pie-de-limon.jpg" alt="Galleta Pie de Limón Runa Cookies"></div>
+          <h3>Pie de Limón</h3>
+          <p class="desc">Cremoso ganache de limón.</p>
+          <div class="price-row"><span class="price">$2.500</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card">
+          <div class="swatch"><img src="assets/mani-frambuesa.jpg" alt="Galleta Maní Frambuesa Runa Cookies"></div>
+          <h3>Maní Frambuesa</h3>
+          <p class="desc">Trozos de cobertura blanca, mantequilla de maní y mermelada de frambuesa.</p>
+          <div class="price-row"><span class="price">$2.500</span><span class="unit">por unidad</span></div>
+        </article>
+        <article class="card featured">
+          <div class="swatch"><img src="assets/dubai.jpg" alt="Galleta Dubai Runa Cookies"></div>
+          <h3>Dubai</h3>
+          <p class="desc">Trozos de chocolate negro y crema de pistacho Dubai.</p>
+          <div class="price-row"><span class="price">$3.000</span><span class="unit">por unidad</span></div>
+        </article>
+      </div>
+
+      <div class="keto-card" data-reveal>
+        <div class="keto-visual"><img src="assets/keto.jpg" alt="Galleta Keto Runa Cookies"></div>
+        <div class="keto-copy">
+          <span class="tag tag-keto">Línea Keto</span>
+          <h3>Galleta Keto</h3>
+          <p>Harina de almendra, alulosa, nueces y chocolate bitter 60% cacao. Misma técnica, misma textura suave — para quienes cuidan los carbohidratos sin resignar el gusto.</p>
+          <span class="price-placeholder" style="color:var(--gold-deep); background:rgba(185,138,70,0.14);">$2.500 por unidad</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARMA TU CAJA -->
+  <section class="box-builder pad" id="caja">
+    <div class="wrap box-grid">
+      <div data-reveal="left">
+        <span class="kicker">Para ti</span>
+        <h2>Arma tu caja, sabor por sabor</h2>
+        <p style="color:var(--ink-soft); margin-top:14px; max-width:48ch;">Nada de cajas cerradas: eliges cuántas galletas quieres (desde 2) y qué sabores, mezclando clásicas, premium, Dubai o keto. Cada galleta se cobra por su propio precio.</p>
+        <div class="steps">
+          <div class="step">
+            <span class="n">1</span>
+            <div><h4>Elige tus sabores</h4><p>Mínimo 2 galletas, sin límite máximo. Combina clásicas, premium, Dubai o keto como quieras.</p></div>
+          </div>
+          <div class="step">
+            <span class="n">2</span>
+            <div><h4>Pide por WhatsApp</h4><p>Nos escribes con tu selección, con al menos 24 horas de anticipación.</p></div>
+          </div>
+          <div class="step">
+            <span class="n">3</span>
+            <div><h4>Recíbela en menos de 48h</h4><p>Delivery a domicilio dentro de la Región Metropolitana de Santiago.</p></div>
+          </div>
+        </div>
+        <div class="hero-cta" style="margin-top:34px;">
+          <a class="btn btn-gold" href="https://wa.me/56990924013?text=Hola%2C%20quiero%20armar%20mi%20caja%20de%20galletas%20Runa" target="_blank" rel="noopener">Armar mi caja por WhatsApp</a>
+        </div>
+      </div>
+      <div data-reveal="right" class="box-visual">
+        <img src="assets/caja.jpg" alt="Caja Runa Cookies armada con distintos sabores">
+      </div>
+    </div>
+  </section>
+
+  <!-- MAYORISTAS -->
+  <section class="pad">
+    <div class="wrap">
+      <div class="wholesale" data-reveal="scale">
+        <div>
+          <span class="kicker">Para negocios</span>
+          <h2>¿Tienes una cafetería o un evento?</h2>
+          <p>Trabajamos con ventas mayoristas para cafeterías y eventos, con precios y condiciones especiales. Escríbenos por WhatsApp y te enviamos el catálogo con los valores para empresas.</p>
+        </div>
+        <div class="wholesale-cta">
+          <a class="btn btn-gold" href="https://wa.me/56990924013?text=Hola%2C%20tengo%20un%20negocio%20y%20quiero%20informaci%C3%B3n%20del%20cat%C3%A1logo%20mayorista" target="_blank" rel="noopener">Solicitar catálogo mayorista</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO PEDIR -->
+  <section class="how pad" id="como-pedir">
+    <div class="wrap">
+      <div class="section-head center" data-reveal style="margin-left:auto;margin-right:auto;">
+        <span class="kicker">Simple y directo</span>
+        <h2>Cómo funciona un pedido</h2>
+      </div>
+      <div class="how-grid" data-stagger>
+        <div class="how-card">
+          <div class="ico">1</div>
+          <h4>Escribes por WhatsApp</h4>
+          <p>Nos cuentas qué sabores y cuántas galletas quieres.</p>
+        </div>
+        <div class="how-card">
+          <div class="ico">2</div>
+          <h4>Preparamos la masa</h4>
+          <p>Con tu pedido confirmado, preparamos la masa en frío durante 24 horas para concentrar sabor y textura.</p>
+        </div>
+        <div class="how-card">
+          <div class="ico">3</div>
+          <h4>Horneamos fresco</h4>
+          <p>Tras el reposo exacto, van directo al horno para que las recibas recién hechas, suaves y en su punto.</p>
+        </div>
+        <div class="how-card">
+          <div class="ico">4</div>
+          <h4>Delivery en &lt;48h</h4>
+          <p>Entrega a domicilio en la Región Metropolitana de Santiago.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact pad" id="contacto">
+    <div class="wrap contact-grid">
+      <div data-reveal="left">
+        <span class="kicker">Hablemos</span>
+        <h2>Pide tu caja Runa hoy</h2>
+        <p class="lead">Escríbenos por WhatsApp con tu selección de sabores. Recuerda pedir con al menos 24 horas de anticipación.</p>
+        <div class="contact-cta">
+          <a class="btn btn-primary" href="https://wa.me/56990924013?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20galletas%20Runa%20%F0%9F%8D%AA" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          <a class="btn btn-outline" href="https://instagram.com/runa_cookies" target="_blank" rel="noopener">Ver Instagram</a>
+        </div>
+      </div>
+      <div data-reveal="right" class="contact-info">
+        <div class="info-row">
+          <span class="ico">📍</span>
+          <div><b>Cobertura</b><span>Delivery en toda la Región Metropolitana de Santiago</span></div>
+        </div>
+        <div class="info-row">
+          <span class="ico">💬</span>
+          <div><b>WhatsApp</b><br><a href="https://wa.me/56990924013" target="_blank" rel="noopener">+56 9 9092 4013</a></div>
+        </div>
+        <div class="info-row">
+          <span class="ico">📷</span>
+          <div><b>Instagram</b><br><a href="https://instagram.com/runa_cookies" target="_blank" rel="noopener">@runa_cookies</a></div>
+        </div>
+        <div class="info-row">
+          <span class="ico">✉️</span>
+          <div><b>Correo</b><br><a href="mailto:galletas@runacookies.com">galletas@runacookies.com</a></div>
+        </div>
+        <div class="info-row">
+          <span class="ico">⏱️</span>
+          <div><b>Tiempos</b><span>24h de anticipación · delivery en menos de 48h</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <a href="#top" class="footer-brand"><span class="dot" style="width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block;"></span> Runa Cookies</a>
+    <div class="footer-links">
+      <a href="#clasicas">Clásicas</a>
+      <a href="#premium">Premium</a>
+      <a href="#caja">Arma tu caja</a>
+      <a href="https://instagram.com/runa_cookies" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <span class="footer-copy">© <span id="year"></span> Runa Cookies. Hecho a mano en Santiago.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Header on scroll
+  var header = document.getElementById('siteHeader');
+  function onScroll(){
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu (simple toggle of nav-links as overlay list)
+  var burger = document.getElementById('burgerBtn');
+  var navLinks = document.querySelector('.nav-links');
+  burger.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    if (open){
+      navLinks.style.display = 'flex';
+      navLinks.style.position = 'fixed';
+      navLinks.style.top = '64px';
+      navLinks.style.left = '0';
+      navLinks.style.right = '0';
+      navLinks.style.background = 'rgba(244,235,218,0.98)';
+      navLinks.style.backdropFilter = 'blur(14px)';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.padding = '24px';
+      navLinks.style.gap = '18px';
+      navLinks.style.boxShadow = '0 20px 40px -20px rgba(36,26,18,0.3)';
+    } else {
+      navLinks.removeAttribute('style');
+    }
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      navLinks.classList.remove('open');
+      navLinks.removeAttribute('style');
+    });
+  });
+
+  // Reveal + stagger on scroll (Intersection Observer)
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  var staggerEls = document.querySelectorAll('[data-stagger]');
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -60px 0px' });
+
+  revealEls.forEach(function(el){ io.observe(el); });
+  staggerEls.forEach(function(el){
+    var children = el.children;
+    for (var i=0;i<children.length;i++){
+      children[i].style.transitionDelay = (i * 90) + 'ms';
+    }
+    io.observe(el);
+  });
+
+  // Counters
+  var counters = document.querySelectorAll('[data-counter]');
+  var counted = new WeakSet();
+  var cIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting && !counted.has(entry.target)){
+        counted.add(entry.target);
+        animateCounter(entry.target);
+        cIo.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  counters.forEach(function(el){ cIo.observe(el); });
+
+  function animateCounter(el){
+    var target = parseInt(el.getAttribute('data-counter'), 10) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    var duration = 1400;
+    var start = null;
+    function step(ts){
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Subtle parallax on hero glow
+  var glow = document.querySelector('.hero');
+  window.addEventListener('scroll', function(){
+    if (!glow) return;
+    var y = window.scrollY;
+    glow.style.setProperty('--py', (y * 0.15) + 'px');
+  }, { passive:true });
+})();
+</script>
+
+</body>
+</html>
